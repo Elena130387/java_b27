@@ -27,7 +27,7 @@ public class ContactCreationTests {
   }
 
   @Test
-  public void ContactCreationTests() throws Exception {
+  public void testContactCreation() throws Exception {
     goToContactCreat();
     editNewContactData(new ContactData("Helena", "Shapoval", "Spb, Verbnaya st, h.1", "89554050801", "8888@rambler.ru"));
     submitNewContact();
