@@ -39,9 +39,6 @@ public class ApplicationManager {
     return navigationHelper;
   }
 
-  public void goToHome() {
-    wd.findElement(By.linkText("home")).click();
-  }
 
   public void submitNewContact() {
     wd.findElement(By.name("submit")).click();
@@ -66,9 +63,7 @@ public class ApplicationManager {
     wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
   }
 
-  public void goToContactCreat() {
-    wd.findElement(By.linkText("add new")).click();
-  }
+
 
   public void deleteContact() {
     wd.findElement(By.xpath("//input[@value='Delete']")).click();
