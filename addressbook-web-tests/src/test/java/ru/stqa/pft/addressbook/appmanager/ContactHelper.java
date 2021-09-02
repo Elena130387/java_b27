@@ -24,11 +24,11 @@ public class ContactHelper extends HelperBase {
 
 
   public void deleteContact() {
-    wd.findElement(By.xpath("//input[@value='Delete']")).click();
+    click(By.xpath("//input[@value='Delete']"));
     wd.switchTo().alert().accept();
   }
 
   public void selectFirstContact() {
-    wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input")).click();
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
   }
 }
