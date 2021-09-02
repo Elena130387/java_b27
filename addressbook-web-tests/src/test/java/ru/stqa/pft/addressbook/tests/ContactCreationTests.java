@@ -9,6 +9,8 @@ public class ContactCreationTests extends TestBase {
     app.getNavigationHelper().goToContactCreat();
     app.getContactHelper().editNewContactData(new ContactData("Helena", "Shapoval", "Spb, Verbnaya st, h.1", "89554050801", "8888@rambler.ru"));
     app.getContactHelper().submitNewContact();
+    app.getContactHelper().returnToHomePage();
+    app.logout();
   }
 
 }
