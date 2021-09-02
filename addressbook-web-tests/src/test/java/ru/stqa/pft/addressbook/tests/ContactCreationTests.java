@@ -17,7 +17,7 @@ public class ContactCreationTests {
   }
 
   private void login(String username, String password) {
-    wd.get("http://localhost:8080/addressbook/group.php?selected%5B%5D=1&selected%5B%5D=2&selected%5B%5D=3&selected%5B%5D=4&selected%5B%5D=5&selected%5B%5D=6&selected%5B%5D=7&selected%5B%5D=8&delete=Delete+group%28s%29");
+    wd.get("http://localhost:8080/addressbook/group.php");
     wd.findElement(By.name("user")).click();
     wd.findElement(By.name("user")).clear();
     wd.findElement(By.name("user")).sendKeys(username);
