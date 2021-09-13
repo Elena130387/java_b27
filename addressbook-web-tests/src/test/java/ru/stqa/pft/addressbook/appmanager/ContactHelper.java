@@ -36,8 +36,9 @@ public class ContactHelper extends HelperBase {
     switchToAlertAccept();
   }
 
-  public void selectFirstContact() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
+  public void selectContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
+   // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
   }
 
   public void initContactModification() {
