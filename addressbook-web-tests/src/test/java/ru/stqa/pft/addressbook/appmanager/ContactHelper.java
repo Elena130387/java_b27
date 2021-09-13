@@ -75,4 +75,8 @@ public class ContactHelper extends HelperBase {
   public int getContactCount() {
     return wd.findElements(By.name("entry")).size();
   }
+
+  public void isCssSelectorShow() {
+    wd.findElement(By.cssSelector("div.msgbox"));
+  }
 }
