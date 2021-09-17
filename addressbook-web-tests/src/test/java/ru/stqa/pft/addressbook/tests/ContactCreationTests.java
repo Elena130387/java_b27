@@ -13,7 +13,7 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation() throws Exception {
     app.getNavigationHelper().goToHome();
     List<ContactData> befor = app.getContactHelper().getContactList();
-    ContactData contact = new ContactData("TEST3", "Shapoval", "Spb, Verbnaya st, h.4", "89554050801", "8888@rambler.ru", null);
+    ContactData contact = new ContactData("TEST3", "Shapoval", "Spb, Verbnaya st, h.4", "89554050801", "8888@rambler.ru", "test1");
     app.getContactHelper().createContact(contact, true);
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), befor.size() + 1);
@@ -24,7 +24,7 @@ public class ContactCreationTests extends TestBase {
         max = с.getId();
       }
     }
-    //contact.setId(max);
+    contact.setId(max);
     befor.add(contact);
     Assert.assertEquals( new HashSet<Object>(after), new HashSet<Object>(befor));
     app.logout();
