@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
@@ -30,7 +29,7 @@ public class ContactModificationTests extends TestBase {
     Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     befor.sort(byId);
     after.sort(byId);
-    Assert.assertEquals( after, befor);
+    Assert.assertEquals(after, befor);
     app.logout();
   }
 }
