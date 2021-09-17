@@ -30,7 +30,7 @@ public class ContactModificationTests extends TestBase {
     Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     befor.sort(byId);
     after.sort(byId);
-    Assert.assertEquals( new HashSet<Object>(after), new HashSet<Object>(befor));
+    Assert.assertEquals( after, befor);
     app.logout();
   }
 }
