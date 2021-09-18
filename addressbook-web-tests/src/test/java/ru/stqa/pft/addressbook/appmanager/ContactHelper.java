@@ -63,6 +63,17 @@ public class ContactHelper extends HelperBase {
     submitNewContact();
     returnToHomePage();
   }
+  public void modifyContact(int index, ContactData contact) {
+    initContactModification(index);
+    editNewContactData(contact, false);
+    submitContactModification();
+    returnToHomePage();
+  }
+  public void deleteContact(int index) {
+    selectContact(index);
+    deleteContact();
+    isCssSelectorShow();
+  }
 
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
