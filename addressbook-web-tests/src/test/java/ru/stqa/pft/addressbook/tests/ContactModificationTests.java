@@ -30,6 +30,6 @@ public class ContactModificationTests extends TestBase {
     befor.sort(byId);
     after.sort(byId);
     Assert.assertEquals(after, befor);
-    app.logout();
+   // app.logout();
   }
 }

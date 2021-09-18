@@ -25,6 +25,6 @@ public class ContactDeletionTests extends TestBase {
     befor.remove(befor.size() - 2);
     Assert.assertEquals(befor, after);
 
-    app.logout();
+   // app.logout();
   }
 }
