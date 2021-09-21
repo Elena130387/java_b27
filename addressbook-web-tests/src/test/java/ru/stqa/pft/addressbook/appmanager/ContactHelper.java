@@ -6,9 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,18 +39,12 @@ public class ContactHelper extends HelperBase {
     switchToAlertAccept();
   }
 
-  public void selectContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
-   // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
-  }
-
   private void selectContactById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void initContactModification(int index) {
     wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
-   // click(By.xpath("//img[@alt='Edit']"));
   }
 
   private void initContactModifyByID(int id) {
@@ -74,17 +65,6 @@ public class ContactHelper extends HelperBase {
     submitNewContact();
     returnToHomePage();
   }
-  public void modify(int index, ContactData contact) {
-    initContactModification(index);
-    editNewContactData(contact, false);
-    submitContactModification();
-    returnToHomePage();
-  }
-  public void delete(int index) {
-    selectContact(index);
-    delete();
-    isCssSelectorShow();
-  }
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
@@ -103,6 +83,10 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
   }
 
+  public int getContactCount() {
+    return wd.findElements(By.name("entry")).size();
+  }
+
   public void goToContactCreate() {
     if (isElementPresent(By.tagName("h1"))
             && wd.findElement(By.tagName("h1")).getText().equals("Edit / add address book entry")
@@ -112,29 +96,10 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public int getContactCount() {
-    return wd.findElements(By.name("entry")).size();
-  }
-
   public void isCssSelectorShow() {
     wd.findElement(By.cssSelector("div.msgbox"));
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.name("entry"));
-    for (WebElement element: elements){
-      List<WebElement> cells = element.findElements(By.tagName("td"));
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      String lastname = cells.get(1).getText();
-      String name = cells.get(2).getText();
-      String address = cells.get(3).getText();
-      String email = cells.get(4).getText();
-      String mobile = cells.get(5).getText();
-      contacts.add(new ContactData().withId(id).withFirstname(name).withLastname(lastname));
-    }
-    return contacts;
-  }
 
   public Set<ContactData> all() {
     Set<ContactData> contacts = new HashSet<ContactData>();
