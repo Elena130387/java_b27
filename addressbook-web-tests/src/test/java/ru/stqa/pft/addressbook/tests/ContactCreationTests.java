@@ -6,22 +6,21 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() throws Exception {
     app.goTO().home();
-    List<ContactData> befor = app.contact().list();
+    Set<ContactData> befor = app.contact().all();
     ContactData contact = new ContactData()
-            .withFirstname("Galy").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobile("89554050801").withEmail("8888@rambler.ru").withGroup("test1");
+            .withFirstname("Galy").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobile("89554050801").withEmail("8888@rambler.ru").withGroup("test_new");
     app.contact().create(contact, true);
-    List<ContactData> after = app.contact().list();
+    Set<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), befor.size() + 1);
+    contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
 
     befor.add(contact);
-    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-    befor.sort(byId);
-    after.sort(byId);
     Assert.assertEquals( after, befor);
    // app.logout();
   }
