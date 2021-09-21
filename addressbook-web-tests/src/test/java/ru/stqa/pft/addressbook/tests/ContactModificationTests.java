@@ -7,31 +7,29 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     app.goTO().home();
-    if (app.contact().list().size() == 0) {
+    if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstname("Galy").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobile("89554050801").withEmail("8888@rambler.ru").withGroup("test1"), true);
     }
   }
   @Test
   public void testContactModification() {
-    List<ContactData> befor = app.contact().list();
-    int index = befor.size() - 2;
+    Set<ContactData> befor = app.contact().all();
+    ContactData modifiedCont = befor.iterator().next();
     ContactData contact = new ContactData()
-            .withId(befor.get(index).getId()).withFirstname("Olga").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobile("89554050801").withEmail("8888@rambler.ru");
-    app.contact().modify(index, contact);
-    List<ContactData> after = app.contact().list();
+            .withId(modifiedCont.getId()).withFirstname("Genya").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobile("89554050801").withEmail("8888@rambler.ru");
+    app.contact().modify(contact);
+    Set<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), befor.size());
 
-    befor.remove(index);
+    befor.remove(modifiedCont);
     befor.add(contact);
-    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-    befor.sort(byId);
-    after.sort(byId);
     Assert.assertEquals(after, befor);
    // app.logout();
   }
