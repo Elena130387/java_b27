@@ -78,6 +78,16 @@ public class ContactHelper extends HelperBase {
     isCssSelectorShow();
   }
 
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    delete();
+    isCssSelectorShow();
+  }
+
+  private void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
   }
