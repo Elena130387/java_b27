@@ -46,6 +46,7 @@ public class GroupHelper extends HelperBase{
   public void submitGroupModification() {
     click(By.name("update"));
   }
+
   public void create(GroupData group) {
     initGroupCreation();
     fillGroupForm(group);
@@ -73,7 +74,7 @@ public class GroupHelper extends HelperBase{
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int getGroupCount() {
+  public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
 

@@ -14,12 +14,21 @@ public class GroupCreationTests extends TestBase{
     Groups befor = app.group().all();
     GroupData group = new GroupData().withName("test2");
     app.group().create(group);
+    assertThat(app.group().count(), equalTo(befor.size() + 1));
     Groups after = app.group().all();
-    assertThat(after.size(), equalTo(befor.size() + 1));
-
     assertThat(after, equalTo(
             befor.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-
    // app.logout();
+  }
+
+  @Test
+  public void testBedGroupCreation() throws Exception {
+    app.goTO().groupPage();
+    Groups befor = app.group().all();
+    GroupData group = new GroupData().withName("test2'");
+    app.group().create(group);
+    assertThat(app.group().count(), equalTo(befor.size()));
+    Groups after = app.group().all();
+    assertThat(after, equalTo(befor));
   }
 }
