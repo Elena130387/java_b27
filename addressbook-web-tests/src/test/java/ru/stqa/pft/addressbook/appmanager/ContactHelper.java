@@ -7,11 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -27,7 +24,9 @@ public class ContactHelper extends HelperBase {
     type(By.name("firstname"),contactData.getFirstname());
     type(By.name("lastname"),contactData.getLastname());
     type(By.name("address"),contactData.getAddress());
+    type(By.name("home"),contactData.getHome());
     type(By.name("mobile"),contactData.getMobile());
+    type(By.name("work"),contactData.getWork());
     type(By.name("email"),contactData.getEmail());
 
     if (creation) {
@@ -43,7 +42,7 @@ public class ContactHelper extends HelperBase {
   }
 
   private void selectContactById(int id) {
-    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    wd.findElement(By.cssSelector(String.format("input[value='%s']", id))).click();
   }
 
   public void initContactModification(int index) {
@@ -51,7 +50,7 @@ public class ContactHelper extends HelperBase {
   }
 
   private void initContactModifyByID(int id) {
-    wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
+    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
   }
 
   public void submitContactModification() {
@@ -84,6 +83,19 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
     returnToHomePage();
   }
+
+  public ContactData infoFromEditForm(ContactData contact) {
+   initContactModifyByID(contact.getId());
+   String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+   String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+   String home = wd.findElement(By.name("home")).getAttribute("value");
+   String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+   String work = wd.findElement(By.name("work")).getAttribute("value");
+   returnToHomePage();
+   return new ContactData().
+           withId(contact.getId()).withFirstname(firstname).withLastname(lastname).
+           withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+ }
 
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
