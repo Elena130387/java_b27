@@ -23,9 +23,11 @@ public class ContactPhoneTests extends TestBase {
     app.contact().goToHome();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-    assertThat(contact.getHomePhones(), equalTo(contactInfoFromEditForm.getHomePhones()));
-    assertThat(contact.getMobilePhones(), equalTo(contactInfoFromEditForm.getMobilePhones()));
-    assertThat(contact.getWorkPhones(), equalTo(contactInfoFromEditForm.getWorkPhones()));
+    assertThat(contact.getHomePhones(), equalTo(cleaned(contactInfoFromEditForm.getHomePhones())));
+    assertThat(contact.getMobilePhones(), equalTo(cleaned(contactInfoFromEditForm.getMobilePhones())));
+    assertThat(contact.getWorkPhones(), equalTo(cleaned(contactInfoFromEditForm.getWorkPhones())));
   }
-
+  public String cleaned(String phone) {
+    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+  }
 }
