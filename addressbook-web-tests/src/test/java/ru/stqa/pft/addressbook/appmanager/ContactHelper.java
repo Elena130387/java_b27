@@ -24,9 +24,9 @@ public class ContactHelper extends HelperBase {
     type(By.name("firstname"),contactData.getFirstname());
     type(By.name("lastname"),contactData.getLastname());
     type(By.name("address"),contactData.getAddress());
-    type(By.name("home"),contactData.getHome());
-    type(By.name("mobile"),contactData.getMobile());
-    type(By.name("work"),contactData.getWork());
+    type(By.name("home"),contactData.getHomePhones());
+    type(By.name("mobile"),contactData.getMobilePhones());
+    type(By.name("work"),contactData.getWorkPhones());
     type(By.name("email"),contactData.getEmail());
 
     if (creation) {
@@ -61,6 +61,13 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("home page"));
   }
 
+  public void goToHome() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home"));
+  }
+
   public void create(ContactData contact, boolean creation) {
     goToContactCreate();
     editNewContactData(contact, creation);
@@ -73,6 +80,7 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     delete();
     isCssSelectorShow();
+    goToHome();
     contactCache = null;
   }
 
@@ -91,7 +99,7 @@ public class ContactHelper extends HelperBase {
    String home = wd.findElement(By.name("home")).getAttribute("value");
    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
    String work = wd.findElement(By.name("work")).getAttribute("value");
-   returnToHomePage();
+
    return new ContactData().
            withId(contact.getId()).withFirstname(firstname).withLastname(lastname).
            withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
@@ -133,8 +141,9 @@ public class ContactHelper extends HelperBase {
       String name = cells.get(2).getText();
       String address = cells.get(3).getText();
       String email = cells.get(4).getText();
-      String mobile = cells.get(5).getText();
-      contactCache.add(new ContactData().withId(id).withFirstname(name).withLastname(lastname));
+      String[] phones = cells.get(5).getText().split("\n");
+      contactCache.add(new ContactData().withId(id).withFirstname(name).withLastname(lastname).
+              withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
     }
     return new Contacts (contactCache);
   }

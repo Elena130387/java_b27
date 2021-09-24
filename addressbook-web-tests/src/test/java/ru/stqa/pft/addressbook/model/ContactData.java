@@ -29,7 +29,7 @@ public class ContactData {
     return address;
   }
 
-  public String getMobile() {
+  public String getMobilePhones() {
     return mobile;
   }
 
@@ -41,11 +41,11 @@ public class ContactData {
     return group;
   }
 
-  public String getHome() {
+  public String getHomePhones() {
     return home;
   }
 
-  public String getWork() {
+  public String getWorkPhones() {
     return work;
   }
 

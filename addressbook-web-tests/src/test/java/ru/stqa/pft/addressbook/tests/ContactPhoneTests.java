@@ -4,11 +4,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+
 public class ContactPhoneTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
-    app.goTO().home();
+    app.contact().goToHome();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstname("Sergei").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobilePhone("89554050801").withEmail("8888@rambler.ru").withGroup("test_new"), true);
@@ -17,9 +20,12 @@ public class ContactPhoneTests extends TestBase {
 
   @Test
   public void testContactPhones(){
-    app.goTO().home();
+    app.contact().goToHome();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+    assertThat(contact.getHomePhones(), equalTo(contactInfoFromEditForm.getHomePhones()));
+    assertThat(contact.getMobilePhones(), equalTo(contactInfoFromEditForm.getMobilePhones()));
+    assertThat(contact.getWorkPhones(), equalTo(contactInfoFromEditForm.getWorkPhones()));
   }
 
 }

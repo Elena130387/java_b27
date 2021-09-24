@@ -11,10 +11,11 @@ import static org.testng.Assert.assertEquals;
 public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
-    app.goTO().home();
+    app.contact().goToHome();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData()
-              .withFirstname("Galy").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobilePhone("89554050801").withEmail("8888@rambler.ru").withGroup("test1"), true);
+              .withFirstname("Elena").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withHomePhone("14141")
+              .withMobilePhone("89554050801").withWorkPhone("7898").withEmail("8888@rambler.ru").withGroup("test_new"), true);
     }
   }
   @Test
@@ -22,7 +23,8 @@ public class ContactModificationTests extends TestBase {
     Contacts befor = app.contact().all();
     ContactData modifiedCont = befor.iterator().next();
     ContactData contact = new ContactData()
-            .withId(modifiedCont.getId()).withFirstname("Genya").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withMobilePhone("89554050801").withEmail("8888@rambler.ru");
+            .withId(modifiedCont.getId()).withFirstname("Alex").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withHomePhone("14141")
+            .withMobilePhone("89554050801").withWorkPhone("7898").withEmail("8888@rambler.ru").withGroup("test_new");
     app.contact().modify(contact);
     assertEquals(app.contact().count(), befor.size());
     Contacts after = app.contact().all();
