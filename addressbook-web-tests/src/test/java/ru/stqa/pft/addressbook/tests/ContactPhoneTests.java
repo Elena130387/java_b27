@@ -23,13 +23,13 @@ public class ContactPhoneTests extends TestBase {
 
   @Test
   public void testContactPhones(){
-    app.contact().goToHome();
+   app.contact().goToHome();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
   }
 
-  private String mergePhones(ContactData contact) {
+ private String mergePhones(ContactData contact) {
    return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
             .stream().filter((s) -> ! s.equals(""))
            .map(ContactPhoneTests::cleaned)
