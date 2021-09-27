@@ -16,7 +16,6 @@ public class GroupDataGenerator {
 
     List<GroupData> groups = generateGroups(count);
     save(groups, file);
-
   }
 
   private static void save(List<GroupData> groups, File file) throws IOException {
