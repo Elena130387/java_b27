@@ -1,0 +1,26 @@
+[
+  {
+    "firstname": "Elena_0",
+    "lastname": "Shapoval_0",
+    "address": "Spb, Verbnaya st, h. 0",
+    "home": "1880",
+    "email": "Elena_0@rambler.ru",
+    "group": "test_new"
+  },
+  {
+    "firstname": "Elena_1",
+    "lastname": "Shapoval_1",
+    "address": "Spb, Verbnaya st, h. 1",
+    "home": "1881",
+    "email": "Elena_1@rambler.ru",
+    "group": "test_new"
+  },
+  {
+    "firstname": "Elena_2",
+    "lastname": "Shapoval_2",
+    "address": "Spb, Verbnaya st, h. 2",
+    "home": "1882",
+    "email": "Elena_2@rambler.ru",
+    "group": "test_new"
+  }
+]
