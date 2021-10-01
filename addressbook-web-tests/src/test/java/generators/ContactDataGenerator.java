@@ -70,13 +70,13 @@ public class ContactDataGenerator {
   }
 
   private static void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
-    Writer writer = new FileWriter(file);
-    for (ContactData contact: contacts){
-      writer.write(String.format
-              ("%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(),
-                      contact.getAddress(),contact.getEmail(), contact.getHomePhone(), contact.getGroup()));
-    }
-    writer.close();
+   try (Writer writer = new FileWriter(file)) {
+     for (ContactData contact : contacts) {
+       writer.write(String.format
+               ("%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(),
+                       contact.getAddress(), contact.getEmail(), contact.getHomePhone(), contact.getGroup()));
+     }
+   }
   }
 
   private static List<ContactData> generateContacts(int count) {

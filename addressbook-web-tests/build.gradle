@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.Test
+
 apply plugin: 'java'
 
 
@@ -12,4 +14,16 @@ dependencies {
     implementation 'com.beust:jcommander:1.48'
     implementation 'com.thoughtworks.xstream:xstream:1.4.18'
     implementation 'com.google.code.gson:gson:2.8.8'
+}
+
+task testGroup (type: Test){
+    useTestNG{
+        suites 'src/test/resources/test-groups.xml'
+    }
+}
+
+task testContact (type: Test){
+    useTestNG{
+        suites 'src/test/resources/test-contacts.xml'
+    }
 }
