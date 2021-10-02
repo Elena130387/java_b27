@@ -20,10 +20,22 @@ task testGroup (type: Test){
     useTestNG{
         suites 'src/test/resources/test-groups.xml'
     }
+    if (project.hasProperty('browser')){
+        systemProperty 'browser', "$browser";
+    }
+    if (project.hasProperty('target')){
+        systemProperty 'target', "$target";
+    }
 }
 
 task testContact (type: Test){
     useTestNG{
         suites 'src/test/resources/test-contacts.xml'
+    }
+    if (project.hasProperty('browser')){
+        systemProperty 'browser', "$browser";
+    }
+    if (project.hasProperty('target')){
+        systemProperty 'target', "$target";
     }
 }
