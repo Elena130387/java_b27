@@ -5,10 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
@@ -33,6 +30,7 @@ public class ContactData {
 
   @Expose
   @Column(name = "address")
+  @Type(type = "text")
   private String address;
 
   @Expose
@@ -52,21 +50,31 @@ public class ContactData {
 
   @Expose
   @Column(name = "email")
+  @Type(type = "text")
   private String email;
 
   @Expose
   @Column(name = "email2")
+  @Type(type = "text")
   private String email2;
 
   @Expose
   @Column(name = "email3")
+  @Type(type = "text")
   private String email3;
-  
-  @Expose
+
+  @Transient
   private String group;
+
+  @Transient
   private String allPhones;
+
+  @Transient
   private String allEmails;
-  private File photo;
+
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
 
   public int getId() {
     return id;
@@ -121,7 +129,7 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public ContactData withId(int id) {
@@ -189,7 +197,7 @@ public class ContactData {
     return this;
   }
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
