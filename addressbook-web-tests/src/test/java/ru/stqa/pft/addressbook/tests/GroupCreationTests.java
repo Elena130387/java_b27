@@ -3,8 +3,6 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
@@ -53,11 +51,11 @@ public class GroupCreationTests extends TestBase{
 
   @Test(dataProvider = "validGroupsFromXml")
   public void testGroupCreation(GroupData group) throws Exception {
+    Groups befor = app.db().groups();
     app.goTO().groupPage();
-    Groups befor = app.group().all();
     app.group().create(group);
     assertThat(app.group().count(), equalTo(befor.size() + 1));
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
     assertThat(after, equalTo(
             befor.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
    // app.logout();
@@ -66,11 +64,11 @@ public class GroupCreationTests extends TestBase{
   @Test(enabled = false)
   public void testBedGroupCreation() throws Exception {
     app.goTO().groupPage();
-    Groups befor = app.group().all();
+    Groups befor = app.db().groups();
     GroupData group = new GroupData().withName("test2'");
     app.group().create(group);
     assertThat(app.group().count(), equalTo(befor.size()));
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
     assertThat(after, equalTo(befor));
   }
 }

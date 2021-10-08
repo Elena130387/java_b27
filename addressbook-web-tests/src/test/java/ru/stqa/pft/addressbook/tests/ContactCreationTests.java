@@ -55,12 +55,12 @@ public class ContactCreationTests extends TestBase {
 
   @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) throws Exception {
+    Contacts befor = app.db().contacts();
     app.contact().goToHome();
-    Contacts befor = app.contact().all();
     File photo = new File("src/test/resources/bug.png");
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(befor.size() + 1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(befor.withAdded(
             contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
    // app.logout();
@@ -68,14 +68,14 @@ public class ContactCreationTests extends TestBase {
 
   @Test(enabled = false)
   public void testContactBedCreation() throws Exception {
+    Contacts befor = app.db().contacts();
     app.contact().goToHome();
-    Contacts befor = app.contact().all();
     ContactData contact = new ContactData()
             .withFirstname("Elena").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withHomePhone("14141")
             .withMobilePhone("89554050801").withWorkPhone("7898").withEmail("8888@rambler.ru").withGroup("test_new");
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(befor.size()));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(befor));
   }
 }

@@ -13,19 +13,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactPhoneEmailAddressTests extends TestBase{
   @BeforeMethod
   public void ensurePreconditions(){
-    app.contact().goToHome();
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0){
+      app.contact().goToHome();
       app.contact().create(new ContactData()
-              .withFirstname("Sergei").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4")
-              .withMobilePhone("89554050801").withEmail("8888@rambler.ru").withGroup("test_new")
-              .withEmail2("714@rambler.ru"), true);
+              .withFirstname("Elena").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withHomePhone("14141")
+              .withMobilePhone("89554050801").withWorkPhone("7898").withEmail("8888@rambler.ru").withGroup("test_new"), true);
     }
   }
 
   @Test
   public void testContactPhoneEmailAddress(){
     app.contact().goToHome();
-    ContactData contact = app.contact().all().iterator().next();
+    ContactData contact = app.db().contacts().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     assertThat(contact.getAddress(),equalTo(contactInfoFromEditForm.getAddress()));
     assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
