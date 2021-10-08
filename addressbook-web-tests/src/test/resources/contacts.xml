@@ -4,23 +4,38 @@
     <lastname>Shapoval_0</lastname>
     <address>Spb, Verbnaya st, h. 0</address>
     <home>1880</home>
+    <mobile></mobile>
+    <work></work>
     <email>Elena_0@rambler.ru</email>
+    <email2></email2>
+    <email3></email3>
     <group>test_new</group>
+    <photo>src\test\resources\bug.png</photo>
   </contact>
   <contact>
     <firstname>Elena_1</firstname>
     <lastname>Shapoval_1</lastname>
     <address>Spb, Verbnaya st, h. 1</address>
     <home>1881</home>
+    <mobile></mobile>
+    <work></work>
     <email>Elena_1@rambler.ru</email>
+    <email2></email2>
+    <email3></email3>
     <group>test_new</group>
+    <photo>src\test\resources\bug.png</photo>
   </contact>
   <contact>
     <firstname>Elena_2</firstname>
     <lastname>Shapoval_2</lastname>
     <address>Spb, Verbnaya st, h. 2</address>
     <home>1882</home>
+    <mobile></mobile>
+    <work></work>
     <email>Elena_2@rambler.ru</email>
+    <email2></email2>
+    <email3></email3>
     <group>test_new</group>
+    <photo>src\test\resources\bug.png</photo>
   </contact>
 </list>

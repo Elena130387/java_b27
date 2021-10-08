@@ -56,11 +56,13 @@ public class ContactCreationTests extends TestBase {
   @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) throws Exception {
     Contacts befor = app.db().contacts();
+   // Contacts befor = app.contact().all();;
     app.contact().goToHome();
-    File photo = new File("src/test/resources/bug.png");
+    //File photo = new File("src/test/resources/bug.png");
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(befor.size() + 1));
     Contacts after = app.db().contacts();
+   // Contacts after = app.contact().all();
     assertThat(after, equalTo(befor.withAdded(
             contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
    // app.logout();

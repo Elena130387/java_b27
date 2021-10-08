@@ -72,6 +72,7 @@ public class ContactData {
   @Transient
   private String allEmails;
 
+  @Expose
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
@@ -93,7 +94,7 @@ public class ContactData {
   }
 
   public String getMobilePhone() {
-    return mobile;
+      return mobile;
   }
 
   public String getEmail() {
@@ -210,12 +211,12 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
+    return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(address, that.address) && Objects.equals(home, that.home) && Objects.equals(mobile, that.mobile);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname);
+    return Objects.hash(id, firstname, lastname, address, home, mobile);
   }
 
   @Override
