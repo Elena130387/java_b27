@@ -205,7 +205,6 @@ public class ContactData {
     this.photo = photo.getPath();
     return this;
   }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

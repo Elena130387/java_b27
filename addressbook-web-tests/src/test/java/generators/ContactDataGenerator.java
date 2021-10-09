@@ -71,7 +71,7 @@ public class ContactDataGenerator {
    try (Writer writer = new FileWriter(file)) {
      for (ContactData contact : contacts) {
        writer.write(String.format
-               ("%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(),
+               ("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(),
                        contact.getAddress(), contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
                        contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(),
                        contact.getGroup(), contact.getPhoto()));
