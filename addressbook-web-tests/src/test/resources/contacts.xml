@@ -9,7 +9,7 @@
     <email>Elena_0@rambler.ru</email>
     <email2></email2>
     <email3></email3>
-    <group>test_new</group>
+    <groups/>
     <photo>src\test\resources\bug.png</photo>
   </contact>
   <contact>
@@ -22,7 +22,7 @@
     <email>Elena_1@rambler.ru</email>
     <email2></email2>
     <email3></email3>
-    <group>test_new</group>
+    <groups/>
     <photo>src\test\resources\bug.png</photo>
   </contact>
   <contact>
@@ -35,7 +35,7 @@
     <email>Elena_2@rambler.ru</email>
     <email2></email2>
     <email3></email3>
-    <group>test_new</group>
+    <groups/>
     <photo>src\test\resources\bug.png</photo>
   </contact>
 </list>

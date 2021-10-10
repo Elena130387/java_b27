@@ -4,10 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 
@@ -63,8 +64,13 @@ public class ContactData {
   @Type(type = "text")
   private String email3;
 
-  @Transient
-  private String group;
+  //@Transient
+  //private String group;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups =new HashSet<GroupData>();
 
   @Transient
   private String allPhones;
@@ -101,10 +107,6 @@ public class ContactData {
     return email;
   }
 
-  public String getGroup() {
-    return group;
-  }
-
   public String getHomePhone() {
     return home;
   }
@@ -135,6 +137,11 @@ public class ContactData {
     } else {
       return null;
     }
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 
   public ContactData withId(int id) {
@@ -192,11 +199,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
@@ -205,6 +207,11 @@ public class ContactData {
     this.photo = photo.getPath();
     return this;
   }
+
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -231,9 +238,9 @@ public class ContactData {
             ", email='" + email + '\'' +
             ", email2='" + email2 + '\'' +
             ", email3='" + email3 + '\'' +
-            ", group='" + group + '\'' +
             ", allPhones='" + allPhones + '\'' +
             ", allEmails='" + allEmails + '\'' +
             '}';
   }
+
 }

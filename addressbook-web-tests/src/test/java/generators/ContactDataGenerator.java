@@ -25,6 +25,7 @@ public class ContactDataGenerator {
   @Parameter (names = "-d", description = "Data format")
   public String format;
 
+
   public static void main(String[] args) throws IOException {
     ContactDataGenerator generator = new ContactDataGenerator();
     JCommander jCommander = new JCommander(generator);
@@ -71,10 +72,9 @@ public class ContactDataGenerator {
    try (Writer writer = new FileWriter(file)) {
      for (ContactData contact : contacts) {
        writer.write(String.format
-               ("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(),
+               ("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(),
                        contact.getAddress(), contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
-                       contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(),
-                       contact.getGroup(), contact.getPhoto()));
+                       contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getPhoto()));
      }
    }
   }
@@ -86,7 +86,7 @@ public class ContactDataGenerator {
               .withAddress(String.format("Spb, Verbnaya st, h. %s", i)).withEmail(String.format("Elena_%s@rambler.ru", i))
               .withHomePhone(String.format("188%s", i)).withMobilePhone("").withWorkPhone("")
                       .withEmail2("").withEmail3("")
-              .withGroup(String.format("test_new")).withPhoto(new File("src/test/resources/bug.png")));
+              .withPhoto(new File("src/test/resources/bug.png")));
     }
     return contacts;
   }

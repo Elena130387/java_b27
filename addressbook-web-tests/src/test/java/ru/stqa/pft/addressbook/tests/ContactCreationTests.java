@@ -7,6 +7,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -65,19 +67,22 @@ public class ContactCreationTests extends TestBase {
    // Contacts after = app.contact().all();
     assertThat(after, equalTo(befor.withAdded(
             contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
-   // app.logout();
+    verifyContactListInUI();
   }
 
   @Test(enabled = false)
   public void testContactBedCreation() throws Exception {
+    Groups groups = app.db().groups();
     Contacts befor = app.db().contacts();
     app.contact().goToHome();
     ContactData contact = new ContactData()
             .withFirstname("Elena").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withHomePhone("14141")
-            .withMobilePhone("89554050801").withWorkPhone("7898").withEmail("8888@rambler.ru").withGroup("test_new");
+            .withMobilePhone("89554050801").withWorkPhone("7898").withEmail("8888@rambler.ru")
+            .inGroup(groups.iterator().next());
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(befor.size()));
     Contacts after = app.db().contacts();
     assertThat(after, equalTo(befor));
+    verifyContactListInUI();
   }
 }
