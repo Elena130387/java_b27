@@ -15,8 +15,7 @@ public class ContactDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     if (app.db().contacts().size() == 0){
-      Groups groups = app.db().groups();
-      if (groups.size() == 0) {
+      if (app.db().groups().size() == 0) {
         app.goTO().groupPage();
         app.group().create(new GroupData().withName("test_new").withFooter("test_new").withHeader("test_new"));
       }
@@ -24,7 +23,7 @@ public class ContactDeletionTests extends TestBase {
       app.contact().create(new ContactData()
               .withFirstname("Elena").withLastname("Shapoval").withAddress("Spb, Verbnaya st, h.4").withHomePhone("14141")
               .withMobilePhone("89554050801").withWorkPhone("7898").withEmail("8888@rambler.ru").withEmail2("").withEmail3("")
-              .inGroup(groups.iterator().next()), true);
+              .inGroup(app.db().groups().iterator().next()), true);
     }
   }
 

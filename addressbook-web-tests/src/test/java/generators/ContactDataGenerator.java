@@ -6,7 +6,12 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
+import org.hibernate.Session;
+import org.hibernate.SessionBuilder;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,6 +29,7 @@ public class ContactDataGenerator {
 
   @Parameter (names = "-d", description = "Data format")
   public String format;
+  private SessionBuilder<SessionBuilder> sessionFactory;
 
 
   public static void main(String[] args) throws IOException {
@@ -79,7 +85,7 @@ public class ContactDataGenerator {
    }
   }
 
-  private static List<ContactData> generateContacts(int count) {
+  private  List<ContactData> generateContacts(int count) {
     List<ContactData> contacts = new ArrayList<ContactData>();
     for (int i = 0; i < count; i++){
       contacts.add(new ContactData().withFirstname(String.format("Elena_%s", i)).withLastname(String.format("Shapoval_%s", i))
