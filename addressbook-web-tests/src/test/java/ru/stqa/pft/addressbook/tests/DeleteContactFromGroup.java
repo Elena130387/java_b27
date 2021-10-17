@@ -42,7 +42,7 @@ public class DeleteContactFromGroup extends TestBase {
   }
 
   @Test
-  public void testAddContactToGroup() {
+  public void testDeleteContactFromGroup() {
    ContactData modifiedCont = app.db().contacts().iterator().next();
    Groups groups = app.db().groups();
    GroupData groupDelFrom = new GroupData();
