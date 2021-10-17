@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.subethamail.smtp.server.Session;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,6 +21,7 @@ public class ApplicationManager {
   private String browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
+  private MailHelper mailHelper;
 
   public ApplicationManager(String browser)  {
     this.browser = browser;
@@ -51,6 +54,13 @@ public class ApplicationManager {
     return ftp;
   }
 
+  public  MailHelper mail(){
+    if (mailHelper == null) {
+      mailHelper = new MailHelper(this);
+    }
+    return mailHelper;
+  }
+
   public String getProperty(String key) {
     return properties.getProperty(key);
   }
@@ -68,5 +78,9 @@ public class ApplicationManager {
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
+  }
+
+  public HttpSession newSession(){
+    return new HttpSession(this);
   }
 }
