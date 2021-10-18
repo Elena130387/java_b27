@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HttpSession {
-  private CloseableHttpClient httpclient;
+  private CloseableHttpClient httpClient;
   private ApplicationManager app;
 
   public HttpSession(ApplicationManager app){
     this.app = app;
-    httpclient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
+    httpClient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
   }
 
   public boolean login (String username, String password) throws IOException {
@@ -31,9 +31,9 @@ public class HttpSession {
     params.add(new BasicNameValuePair("secure_session", "on"));
     params.add(new BasicNameValuePair("return", "index.php"));
     post.setEntity(new UrlEncodedFormEntity(params));
-    CloseableHttpResponse response = httpclient.execute(post);
+    CloseableHttpResponse response = httpClient.execute(post);
     String body = getTextFrom(response);
-    return body.contains(String.format("<a href=\"/mantisbt-2.25.2/mantisbt-2.25.2/account_page.php\">%s</a>", username));
+    return body.contains(String.format("<a href=\"/mantisbt-2.25.2/account_page.php\">%s</a>", username));
    // return body.contains(String.format("<span class=\"italic\">%s</span>", username));
    // return body.contains(String.format("<span class= >%s</span>", username));
   }
@@ -48,9 +48,9 @@ public class HttpSession {
 
   public boolean isLoggedInAs(String username) throws IOException {
     HttpGet get = new HttpGet(app.getProperty("web.baseUrl")+ "/index.php");
-    CloseableHttpResponse response = httpclient.execute(get);
+    CloseableHttpResponse response = httpClient.execute(get);
     String body = getTextFrom(response);
-    return body.contains(String.format("<a href=\"/mantisbt-2.25.2/mantisbt-2.25.2/account_page.php\">%s</a>", username));
+    return body.contains(String.format("<a href=\"/mantisbt-2.25.2/account_page.php\">%s</a>", username));
    // return body.contains(String.format("<span class=\"italic\">%s</span>", username));
   }
 }
