@@ -30,7 +30,7 @@ public class ChangePasswordTests extends TestBase{
 
   @Test
   public void testChangePass() throws IOException, ServiceException {
-    String newPass = app.getProperty("web.newPassword");
+    String newPass = "password_new";
     loginHelper.resetPassword("manage_user_edit_page", String.format("?user_id=%s",userData.getId()));
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);//ждем 10 секунд
     String confirmationLink = loginHelper.findConfirmationLink(mailMessages, userData.getEmail());

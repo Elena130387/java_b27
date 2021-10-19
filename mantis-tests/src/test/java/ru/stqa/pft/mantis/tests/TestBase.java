@@ -1,17 +1,14 @@
 package ru.stqa.pft.mantis.tests;
 
-import org.hibernate.service.spi.ServiceException;
+
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.SkipException;
+
 import org.testng.annotations.AfterSuite;import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import java.io.File;
-import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.rmi.RemoteException;
+
 
 
 public class TestBase {

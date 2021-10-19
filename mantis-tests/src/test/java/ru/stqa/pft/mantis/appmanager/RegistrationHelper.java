@@ -1,10 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
-import ru.lanwen.verbalregex.VerbalExpression;
-import ru.stqa.pft.mantis.model.MailMessage;
-
-import java.util.List;
 
 public class RegistrationHelper extends HelperBase{
 
