@@ -1,49 +1,47 @@
 package ru.stqa.pft.mantis.tests;
 
+import org.hibernate.service.spi.ServiceException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.mantis.appmanager.DbHelper;
+import ru.stqa.pft.mantis.appmanager.HttpSession;
+import ru.stqa.pft.mantis.appmanager.LoginHelper;
 import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
-
-import javax.mail.MessagingException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 public class ChangePasswordTests extends TestBase{
+  LoginHelper loginHelper = null;
+  UserData userData = null;
+
   @BeforeMethod
-  public void startMailServer() {
+  public void start(){
+    loginHelper = new LoginHelper(app);
+    loginHelper.login();
     app.mail().start();
+    userData = new DbHelper().userData();
+    assertNotNull(userData);
   }
 
   @Test
-  public void changePasswordTest() throws IOException, MessagingException {
-    app.registration().userAuth("administrator", "root");
-    UserData user = anyUser(app.dbHelper().allUsers());
-    String newPassword = "newPassword";
-    app.registration().resetUserPassword(user.getUsername());
-    List<MailMessage> mailMessages = app.mail().waitForMail(1, 80000);
-    String confimationLink = app.registration().findConfimLink(mailMessages, user.getEmail());
-    app.registration().finish(confimationLink, user.getUsername(), newPassword);
-    assertTrue(app.newSession().login(user.getUsername(), newPassword));
-
+  public void testChangePass() throws IOException, ServiceException {
+    String newPass = app.getProperty("web.newPassword");
+    loginHelper.resetPassword("manage_user_edit_page", String.format("?user_id=%s",userData.getId()));
+    List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);//ждем 10 секунд
+    String confirmationLink = loginHelper.findConfirmationLink(mailMessages, userData.getEmail());
+    loginHelper.newPassword(confirmationLink,userData.getUsername(), newPass);
+    HttpSession session = app.newSession();
+    assertTrue(session.login(userData.getUsername(), newPass));
+    assertTrue(session.isLoggedInAs(userData.getUsername()));
   }
-
-  private UserData anyUser(List<UserData> allUsers) {
-    List<UserData> copy = new ArrayList<>(allUsers);
-    for (UserData user : copy){
-      if(user.getUsername().equals("administrator")) {
-        allUsers.remove(user);
-      }
-    }
-    return allUsers.get((int)Math.random() * allUsers.size());
-  }
-
 
   @AfterMethod(alwaysRun = true)
-  public void stopMailServer() {
+  public void stop(){
     app.mail().stop();
   }
 }
