@@ -28,6 +28,10 @@ public class TestBase {
     app.stop();
   }
 
-
+  public void skipIfNotFixed(int issueId) {
+    if (isIssueOpen(issueId)) {
+      throw new SkipException("Ignored because of issue " + issueId)
+    }
+  }
 
 }
