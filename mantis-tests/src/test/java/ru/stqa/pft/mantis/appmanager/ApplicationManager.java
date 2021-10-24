@@ -97,6 +97,7 @@ public class ApplicationManager {
   public DbHelper dbHelper(){
     return dbHelper;
   }
+
   public SoapHelper soap(){
     if (soapHelper == null) {
       soapHelper = new SoapHelper(this);

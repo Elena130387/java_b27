@@ -1,11 +1,10 @@
 package ru.stqa.pft.mantis.model;
 
-import org.stringtemplate.v4.ST;
-
 public class Issue {
   private int id;
   private String summary;
   private String description;
+  private Status status;
   private Project project;
 
   public int getId() {
@@ -35,6 +34,14 @@ public class Issue {
     return this;
   }
 
+  public Status getStatus() {
+    return status;
+  }
+
+  public Issue withStatus(Status status) {
+    this.status = status;
+    return this;
+  }
   public Project getProject() {
     return project;
   }

@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.model.Issue;
 import ru.stqa.pft.mantis.model.Project;
 import javax.xml.rpc.ServiceException;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Set;
@@ -25,9 +26,16 @@ public class SoapTests extends TestBase{
   @Test
   public void testCreateIssue() throws MalformedURLException, ServiceException, RemoteException {
     Set<Project> projects = app.soap().getProjects();
-    Issue issue = new Issue().withSummary("Test issue").withDescription("Test issue description")
+    Issue issue = new Issue().withSummary("Test issue closed").withDescription("Test issue description")
             .withProject(projects.iterator().next());
     Issue created = app.soap().addIssue(issue);
     assertEquals(issue.getSummary(), created.getSummary());
+  }
+
+  @Test
+  public void testGetIssueStatus() throws MalformedURLException, ServiceException, RemoteException {
+    skipIfNotFixed(2);
+    Issue issue = app.soap().getIssueData(2);
+    System.out.println(issue.getStatus().getName());
   }
 }
