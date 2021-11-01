@@ -21,7 +21,8 @@ dependencies {
 
 task testGroup (type: Test){
     useTestNG{
-        suites 'src/test/resources/test-groups.xml'
+ //       suites 'src/test/resources/test-groups.xml'
+        suites 'src\\test\\resources\\testng-groups.xml'
     }
     if (project.hasProperty('browser')){
         systemProperty 'browser', "${browser}";
