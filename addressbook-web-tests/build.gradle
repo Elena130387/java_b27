@@ -40,7 +40,8 @@ task testGroup (type: Test){
 
 task testContact (type: Test){
     useTestNG{
-        suites 'src/test/resources/test-contacts.xml'
+//        suites 'src/test/resources/test-contacts.xml'
+        suites 'src\\test\\resources\\testng-contacts.xml'
     }
     if (project.hasProperty('browser')){
         systemProperty 'browser', "${browser}";
