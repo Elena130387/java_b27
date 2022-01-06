@@ -33,10 +33,10 @@ public class TestUsers {
   }
 
   @Test(dataProvider = "validUsersFromCSV")
-  public void testUserCreate(DataUser dataUser) {
+  public void testUser(DataUser dataUser) throws IOException {
     UserController userController = new UserController();
-    UserResponse userResponse;
-    userResponse = userController.sendRequestPost(dataUser);
+    UserResponse userResponse = userController.sendRequestPost(dataUser);
     assertEquals(userResponse.getData(), dataUser);
+    userController.saveAsCsv(userResponse.getData().getId());
   }
 }
