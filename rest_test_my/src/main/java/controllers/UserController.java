@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class UserController extends DataForController {
   private static final String path = "/users";
-  //hh
   public UserResponse sendRequestPost(DataUser dataUser) {
     String json = RestAssured.given()
             .accept("application/json")
@@ -45,5 +44,26 @@ public class UserController extends DataForController {
         e.printStackTrace();
       }
     }
+  }
+  public UserResponse getUserByID(int id){
+    String json = RestAssured.given()
+            .accept("application/json")
+            .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + (String.format(properties.getProperty("token"))))
+            .get (String.format(properties.getProperty("url") + "%s/%s", path,id)).asString();
+
+    Gson gson = new Gson();
+    return gson.fromJson(json, UserResponse.class);
+  }
+  public UserResponse changeUser(DataUser dataUser){
+    String json = RestAssured.given()
+            .accept("application/json")
+            .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + (String.format(properties.getProperty("token"))))
+            .body(dataUser)
+            .patch(String.format(properties.getProperty("url") + "%s/%s", path, dataUser.getId())).asString();
+
+    Gson gson = new Gson();
+    return gson.fromJson(json, UserResponse.class);
   }
 }

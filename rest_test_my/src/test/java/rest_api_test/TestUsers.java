@@ -37,6 +37,12 @@ public class TestUsers {
     UserController userController = new UserController();
     UserResponse userResponse = userController.sendRequestPost(dataUser);
     assertEquals(userResponse.getData(), dataUser);
+    UserResponse userResponseData = userController.getUserByID(userResponse.getData().getId());
+    assertEquals(userResponseData.getData(),userResponse.getData());
+    DataUser dataUserNew = new DataUser().withName(userResponse.getData().getName()).withEmail("svetlana@gmail.ru")
+                    .withGender("female").withStatus(userResponse.getData().getStatus());
+    UserResponse userResponseNew = userController.changeUser(dataUserNew);
     userController.saveAsCsv(userResponse.getData().getId());
   }
 }
+

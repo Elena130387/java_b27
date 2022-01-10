@@ -13,8 +13,9 @@ public class DataUser {
     return id;
   }
 
-  public void setId(Integer id) {
+  public DataUser withId(Integer id) {
     this.id = id;
+    return this;
   }
 
   public String getName() {
