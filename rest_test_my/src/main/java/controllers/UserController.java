@@ -5,6 +5,7 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import pojo.DataUser;
 import pojo.UserResponse;
+import pojo.UserResponseArray;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -65,5 +66,15 @@ public class UserController extends DataForController {
 
     Gson gson = new Gson();
     return gson.fromJson(json, UserResponse.class);
+  }
+
+  public UserResponseArray sendRequestGet() {
+    String json = RestAssured.given()
+            .accept("application/json")
+            .contentType(ContentType.JSON)
+            .header("Authorization", "Bearer " + (String.format(properties.getProperty("token"))))
+            .get (String.format(properties.getProperty("url"))).asString();
+    Gson gson = new Gson();
+    return gson.fromJson(json, UserResponseArray.class);
   }
 }

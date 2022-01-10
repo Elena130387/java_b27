@@ -5,6 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pojo.DataUser;
 import pojo.UserResponse;
+import pojo.UserResponseArray;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,7 +18,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class TestUsers {
-
+int i;
   @DataProvider
   public Iterator<Object[]> validUsersFromCSV() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
@@ -39,9 +40,11 @@ public class TestUsers {
     assertEquals(userResponse.getData(), dataUser);
     UserResponse userResponseData = userController.getUserByID(userResponse.getData().getId());
     assertEquals(userResponseData.getData(),userResponse.getData());
-    DataUser dataUserNew = new DataUser().withName(userResponse.getData().getName()).withEmail("svetlana@gmail.ru")
+    UserResponseArray userResponseArray = userController.sendRequestGet();
+    DataUser dataUserNew = new DataUser().withId(userResponse.getData().getId()).withName(userResponse.getData().getName()).withEmail("svetlana_" + (i++) + "@gmail.ru")
                     .withGender("female").withStatus(userResponse.getData().getStatus());
     UserResponse userResponseNew = userController.changeUser(dataUserNew);
+    assertEquals(userResponseNew.getData(),dataUserNew);
     userController.saveAsCsv(userResponse.getData().getId());
   }
 }
