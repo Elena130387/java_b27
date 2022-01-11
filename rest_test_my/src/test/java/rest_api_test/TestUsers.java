@@ -35,14 +35,15 @@ int i;
 
   @Test(dataProvider = "validUsersFromCSV")
   public void testUser(DataUser dataUser) throws IOException {
+    ++i;
     UserController userController = new UserController();
     UserResponse userResponse = userController.sendRequestPost(dataUser);
     assertEquals(userResponse.getData(), dataUser);
     UserResponse userResponseData = userController.getUserByID(userResponse.getData().getId());
     assertEquals(userResponseData.getData(),userResponse.getData());
-    UserResponseArray userResponseArray = userController.sendRequestGet();
-    DataUser dataUserNew = new DataUser().withId(userResponse.getData().getId()).withName(userResponse.getData().getName()).withEmail("svetlana_" + (i++) + "@gmail.ru")
+    DataUser dataUserNew = new DataUser().withId(userResponse.getData().getId()).withName(userResponse.getData().getName()).withEmail("svetlana_" + i + "@gmail.ru")
                     .withGender("female").withStatus(userResponse.getData().getStatus());
+   // UserResponseArray userResponseArray = userController.sendRequestGet();
     UserResponse userResponseNew = userController.changeUser(dataUserNew);
     assertEquals(userResponseNew.getData(),dataUserNew);
     userController.saveAsCsv(userResponse.getData().getId());
